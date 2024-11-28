@@ -1,8 +1,8 @@
 package main
 
 import (
+	user "github.com/rxdw-mall/server/shared/kitex_gen/user/userservice"
 	"log"
-	user "rxdw-mall/server/kitex_gen/user/userservice"
 )
 
 func main() {

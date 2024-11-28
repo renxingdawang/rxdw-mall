@@ -1,8 +1,8 @@
 package main
 
 import (
+	checkout "github.com/rxdw-mall/server/shared/kitex_gen/checkout/checkoutservice"
 	"log"
-	checkout "rxdw-mall/server/kitex_gen/checkout/checkoutservice"
 )
 
 func main() {

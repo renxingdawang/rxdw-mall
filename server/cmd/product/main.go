@@ -1,8 +1,8 @@
 package main
 
 import (
+	product "github.com/rxdw-mall/server/shared/kitex_gen/product/productcatalogservice"
 	"log"
-	product "rxdw-mall/server/kitex_gen/product/productcatalogservice"
 )
 
 func main() {

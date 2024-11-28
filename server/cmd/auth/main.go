@@ -1,8 +1,8 @@
 package main
 
 import (
+	auth "github.com/rxdw-mall/server/shared/kitex_gen/auth/authservice"
 	"log"
-	auth "rxdw-mall/server/kitex_gen/auth/authservice"
 )
 
 func main() {

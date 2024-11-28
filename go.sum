@@ -4,5 +4,7 @@ github.com/bytedance/gopkg v0.1.1 h1:3azzgSkiaw79u24a+w9arfH8OfnQQ4MHUt9lJFREEaE
 github.com/bytedance/gopkg v0.1.1/go.mod h1:576VvJ+eJgyCzdjS+c4+77QF3p7ubbtiKARP3TxducM=
 github.com/cloudwego/gopkg v0.1.3-0.20241115063537-a218fe69d609 h1:H1sG47O0jCdasGyBXqblpz152hPXtGy4GtXd7fGPWIw=
 github.com/cloudwego/gopkg v0.1.3-0.20241115063537-a218fe69d609/go.mod h1:FQuXsRWRsSqJLsMVd5SYzp8/Z1y5gXKnVvRrWUOsCMI=
+github.com/cloudwego/kitex v0.11.3 h1:Qy1GtyuNbygMpwnMw+Aj1iS7fSd0IO7CzxtpZrRJ+Jc=
+github.com/cloudwego/kitex v0.11.3/go.mod h1:RHT9ERKFVppJjBfGvwJAPxCIzf4oN1yASW5S4pPZNu4=
 github.com/cloudwego/kitex/pkg/protocol/bthrift v0.0.0-20241128074441-9dbafca14676 h1:nJhHg7JuKHKUBo0RwiYqltGtzgVGl9mQiLGzbnIswC0=
 github.com/cloudwego/kitex/pkg/protocol/bthrift v0.0.0-20241128074441-9dbafca14676/go.mod h1:OP63V8YwwSlPVFqHZblV3mJXLPIjcIdwkT6ZYjEggcI=

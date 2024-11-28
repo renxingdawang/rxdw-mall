@@ -1,8 +1,8 @@
 package main
 
 import (
+	cart "github.com/rxdw-mall/server/shared/kitex_gen/cart/cartservice"
 	"log"
-	cart "rxdw-mall/server/kitex_gen/cart/cartservice"
 )
 
 func main() {

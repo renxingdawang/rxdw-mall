@@ -1,8 +1,8 @@
 package main
 
 import (
+	order "github.com/rxdw-mall/server/shared/kitex_gen/order/orderservice"
 	"log"
-	order "rxdw-mall/server/kitex_gen/order/orderservice"
 )
 
 func main() {

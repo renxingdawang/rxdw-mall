@@ -1,8 +1,8 @@
 package main
 
 import (
+	payment "github.com/rxdw-mall/server/shared/kitex_gen/payment/paymentservice"
 	"log"
-	payment "rxdw-mall/server/kitex_gen/payment/paymentservice"
 )
 
 func main() {
