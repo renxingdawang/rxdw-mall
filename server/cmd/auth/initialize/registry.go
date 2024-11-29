@@ -7,6 +7,7 @@ import (
 	"github.com/hashicorp/consul/api"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/rxdw-mall/server/cmd/auth/config"
+	"github.com/rxdw-mall/server/shared/consts"
 	"net"
 	"strconv"
 )
