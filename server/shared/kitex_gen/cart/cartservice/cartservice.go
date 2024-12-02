@@ -7,7 +7,7 @@ import (
 	"errors"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	"github.com/rxdw-mall/server/shared/kitex_gen/cart"
+	cart "github.com/rxdw-mall/server/shared/kitex_gen/cart"
 )
 
 var errInvalidMessageType = errors.New("invalid message type for service method handler")

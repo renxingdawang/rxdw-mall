@@ -6,7 +6,7 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	"github.com/rxdw-mall/server/shared/kitex_gen/order"
+	order "github.com/rxdw-mall/server/shared/kitex_gen/order"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
@@ -14,6 +14,7 @@ type Client interface {
 	PlaceOrder(ctx context.Context, req *order.PlaceOrderReq, callOptions ...callopt.Option) (r *order.PlaceOrderResp, err error)
 	ListOrder(ctx context.Context, req *order.ListOrderReq, callOptions ...callopt.Option) (r *order.ListOrderResp, err error)
 	MarkOrderPaid(ctx context.Context, req *order.MarkOrderPaidReq, callOptions ...callopt.Option) (r *order.MarkOrderPaidResp, err error)
+	CancelOrder(ctx context.Context, req *order.CancelOrderReq, callOptions ...callopt.Option) (r *order.CancelOrderResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -58,4 +59,9 @@ func (p *kOrderServiceClient) ListOrder(ctx context.Context, req *order.ListOrde
 func (p *kOrderServiceClient) MarkOrderPaid(ctx context.Context, req *order.MarkOrderPaidReq, callOptions ...callopt.Option) (r *order.MarkOrderPaidResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.MarkOrderPaid(ctx, req)
+}
+
+func (p *kOrderServiceClient) CancelOrder(ctx context.Context, req *order.CancelOrderReq, callOptions ...callopt.Option) (r *order.CancelOrderResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CancelOrder(ctx, req)
 }

@@ -924,8 +924,960 @@ func (p *ChargeResp) Field1DeepEqual(src string) bool {
 	return true
 }
 
+type CancelPaymentReq struct {
+	OrderId string `thrift:"order_id,1,required" frugal:"1,required,string" json:"order_id"`
+	UsrId   int32  `thrift:"usr_id,2,required" frugal:"2,required,i32" json:"usr_id"`
+}
+
+func NewCancelPaymentReq() *CancelPaymentReq {
+	return &CancelPaymentReq{}
+}
+
+func (p *CancelPaymentReq) InitDefault() {
+}
+
+func (p *CancelPaymentReq) GetOrderId() (v string) {
+	return p.OrderId
+}
+
+func (p *CancelPaymentReq) GetUsrId() (v int32) {
+	return p.UsrId
+}
+func (p *CancelPaymentReq) SetOrderId(val string) {
+	p.OrderId = val
+}
+func (p *CancelPaymentReq) SetUsrId(val int32) {
+	p.UsrId = val
+}
+
+var fieldIDToName_CancelPaymentReq = map[int16]string{
+	1: "order_id",
+	2: "usr_id",
+}
+
+func (p *CancelPaymentReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetOrderId bool = false
+	var issetUsrId bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetOrderId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetUsrId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetOrderId {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetUsrId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CancelPaymentReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_CancelPaymentReq[fieldId]))
+}
+
+func (p *CancelPaymentReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OrderId = _field
+	return nil
+}
+func (p *CancelPaymentReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UsrId = _field
+	return nil
+}
+
+func (p *CancelPaymentReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CancelPaymentReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CancelPaymentReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("order_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OrderId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CancelPaymentReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("usr_id", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.UsrId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CancelPaymentReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CancelPaymentReq(%+v)", *p)
+
+}
+
+func (p *CancelPaymentReq) DeepEqual(ano *CancelPaymentReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.OrderId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.UsrId) {
+		return false
+	}
+	return true
+}
+
+func (p *CancelPaymentReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.OrderId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CancelPaymentReq) Field2DeepEqual(src int32) bool {
+
+	if p.UsrId != src {
+		return false
+	}
+	return true
+}
+
+type TimedCancelPaymentReq struct {
+	OrderId string `thrift:"order_id,1,required" frugal:"1,required,string" json:"order_id"`
+	UsrId   int32  `thrift:"usr_id,2,required" frugal:"2,required,i32" json:"usr_id"`
+}
+
+func NewTimedCancelPaymentReq() *TimedCancelPaymentReq {
+	return &TimedCancelPaymentReq{}
+}
+
+func (p *TimedCancelPaymentReq) InitDefault() {
+}
+
+func (p *TimedCancelPaymentReq) GetOrderId() (v string) {
+	return p.OrderId
+}
+
+func (p *TimedCancelPaymentReq) GetUsrId() (v int32) {
+	return p.UsrId
+}
+func (p *TimedCancelPaymentReq) SetOrderId(val string) {
+	p.OrderId = val
+}
+func (p *TimedCancelPaymentReq) SetUsrId(val int32) {
+	p.UsrId = val
+}
+
+var fieldIDToName_TimedCancelPaymentReq = map[int16]string{
+	1: "order_id",
+	2: "usr_id",
+}
+
+func (p *TimedCancelPaymentReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetOrderId bool = false
+	var issetUsrId bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetOrderId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetUsrId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetOrderId {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetUsrId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TimedCancelPaymentReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_TimedCancelPaymentReq[fieldId]))
+}
+
+func (p *TimedCancelPaymentReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OrderId = _field
+	return nil
+}
+func (p *TimedCancelPaymentReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UsrId = _field
+	return nil
+}
+
+func (p *TimedCancelPaymentReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("TimedCancelPaymentReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("order_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OrderId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("usr_id", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.UsrId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TimedCancelPaymentReq(%+v)", *p)
+
+}
+
+func (p *TimedCancelPaymentReq) DeepEqual(ano *TimedCancelPaymentReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.OrderId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.UsrId) {
+		return false
+	}
+	return true
+}
+
+func (p *TimedCancelPaymentReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.OrderId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *TimedCancelPaymentReq) Field2DeepEqual(src int32) bool {
+
+	if p.UsrId != src {
+		return false
+	}
+	return true
+}
+
+type CancelPaymentResp struct {
+	Success       bool   `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
+	TransactionId string `thrift:"transaction_id,2,required" frugal:"2,required,string" json:"transaction_id"`
+}
+
+func NewCancelPaymentResp() *CancelPaymentResp {
+	return &CancelPaymentResp{}
+}
+
+func (p *CancelPaymentResp) InitDefault() {
+}
+
+func (p *CancelPaymentResp) GetSuccess() (v bool) {
+	return p.Success
+}
+
+func (p *CancelPaymentResp) GetTransactionId() (v string) {
+	return p.TransactionId
+}
+func (p *CancelPaymentResp) SetSuccess(val bool) {
+	p.Success = val
+}
+func (p *CancelPaymentResp) SetTransactionId(val string) {
+	p.TransactionId = val
+}
+
+var fieldIDToName_CancelPaymentResp = map[int16]string{
+	1: "success",
+	2: "transaction_id",
+}
+
+func (p *CancelPaymentResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetSuccess bool = false
+	var issetTransactionId bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetSuccess = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetTransactionId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetSuccess {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetTransactionId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CancelPaymentResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_CancelPaymentResp[fieldId]))
+}
+
+func (p *CancelPaymentResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Success = _field
+	return nil
+}
+func (p *CancelPaymentResp) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TransactionId = _field
+	return nil
+}
+
+func (p *CancelPaymentResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CancelPaymentResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CancelPaymentResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("success", thrift.BOOL, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.Success); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CancelPaymentResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("transaction_id", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TransactionId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CancelPaymentResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CancelPaymentResp(%+v)", *p)
+
+}
+
+func (p *CancelPaymentResp) DeepEqual(ano *CancelPaymentResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Success) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.TransactionId) {
+		return false
+	}
+	return true
+}
+
+func (p *CancelPaymentResp) Field1DeepEqual(src bool) bool {
+
+	if p.Success != src {
+		return false
+	}
+	return true
+}
+func (p *CancelPaymentResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.TransactionId, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type TimedCancelPaymentResp struct {
+	Success       bool   `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
+	TransactionId string `thrift:"transaction_id,2,required" frugal:"2,required,string" json:"transaction_id"`
+}
+
+func NewTimedCancelPaymentResp() *TimedCancelPaymentResp {
+	return &TimedCancelPaymentResp{}
+}
+
+func (p *TimedCancelPaymentResp) InitDefault() {
+}
+
+func (p *TimedCancelPaymentResp) GetSuccess() (v bool) {
+	return p.Success
+}
+
+func (p *TimedCancelPaymentResp) GetTransactionId() (v string) {
+	return p.TransactionId
+}
+func (p *TimedCancelPaymentResp) SetSuccess(val bool) {
+	p.Success = val
+}
+func (p *TimedCancelPaymentResp) SetTransactionId(val string) {
+	p.TransactionId = val
+}
+
+var fieldIDToName_TimedCancelPaymentResp = map[int16]string{
+	1: "success",
+	2: "transaction_id",
+}
+
+func (p *TimedCancelPaymentResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetSuccess bool = false
+	var issetTransactionId bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetSuccess = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetTransactionId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetSuccess {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetTransactionId {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TimedCancelPaymentResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_TimedCancelPaymentResp[fieldId]))
+}
+
+func (p *TimedCancelPaymentResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Success = _field
+	return nil
+}
+func (p *TimedCancelPaymentResp) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TransactionId = _field
+	return nil
+}
+
+func (p *TimedCancelPaymentResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("TimedCancelPaymentResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("success", thrift.BOOL, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.Success); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("transaction_id", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TransactionId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *TimedCancelPaymentResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TimedCancelPaymentResp(%+v)", *p)
+
+}
+
+func (p *TimedCancelPaymentResp) DeepEqual(ano *TimedCancelPaymentResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Success) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.TransactionId) {
+		return false
+	}
+	return true
+}
+
+func (p *TimedCancelPaymentResp) Field1DeepEqual(src bool) bool {
+
+	if p.Success != src {
+		return false
+	}
+	return true
+}
+func (p *TimedCancelPaymentResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.TransactionId, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type PaymentService interface {
 	Charge(ctx context.Context, req *ChargeReq) (r *ChargeResp, err error)
+
+	CancelPayment(ctx context.Context, req *CancelPaymentReq) (r *CancelPaymentResp, err error)
+
+	TimedCancelPayment(ctx context.Context, req *TimedCancelPaymentReq) (r *TimedCancelPaymentResp, err error)
 }
 
 type PaymentServiceChargeArgs struct {
@@ -1261,6 +2213,686 @@ func (p *PaymentServiceChargeResult) DeepEqual(ano *PaymentServiceChargeResult) 
 }
 
 func (p *PaymentServiceChargeResult) Field0DeepEqual(src *ChargeResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type PaymentServiceCancelPaymentArgs struct {
+	Req *CancelPaymentReq `thrift:"req,2" frugal:"2,default,CancelPaymentReq" json:"req"`
+}
+
+func NewPaymentServiceCancelPaymentArgs() *PaymentServiceCancelPaymentArgs {
+	return &PaymentServiceCancelPaymentArgs{}
+}
+
+func (p *PaymentServiceCancelPaymentArgs) InitDefault() {
+}
+
+var PaymentServiceCancelPaymentArgs_Req_DEFAULT *CancelPaymentReq
+
+func (p *PaymentServiceCancelPaymentArgs) GetReq() (v *CancelPaymentReq) {
+	if !p.IsSetReq() {
+		return PaymentServiceCancelPaymentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *PaymentServiceCancelPaymentArgs) SetReq(val *CancelPaymentReq) {
+	p.Req = val
+}
+
+var fieldIDToName_PaymentServiceCancelPaymentArgs = map[int16]string{
+	2: "req",
+}
+
+func (p *PaymentServiceCancelPaymentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *PaymentServiceCancelPaymentArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PaymentServiceCancelPaymentArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentArgs) ReadField2(iprot thrift.TProtocol) error {
+	_field := NewCancelPaymentReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *PaymentServiceCancelPaymentArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CancelPayment_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentArgs) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PaymentServiceCancelPaymentArgs(%+v)", *p)
+
+}
+
+func (p *PaymentServiceCancelPaymentArgs) DeepEqual(ano *PaymentServiceCancelPaymentArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *PaymentServiceCancelPaymentArgs) Field2DeepEqual(src *CancelPaymentReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type PaymentServiceCancelPaymentResult struct {
+	Success *CancelPaymentResp `thrift:"success,0,optional" frugal:"0,optional,CancelPaymentResp" json:"success,omitempty"`
+}
+
+func NewPaymentServiceCancelPaymentResult() *PaymentServiceCancelPaymentResult {
+	return &PaymentServiceCancelPaymentResult{}
+}
+
+func (p *PaymentServiceCancelPaymentResult) InitDefault() {
+}
+
+var PaymentServiceCancelPaymentResult_Success_DEFAULT *CancelPaymentResp
+
+func (p *PaymentServiceCancelPaymentResult) GetSuccess() (v *CancelPaymentResp) {
+	if !p.IsSetSuccess() {
+		return PaymentServiceCancelPaymentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *PaymentServiceCancelPaymentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*CancelPaymentResp)
+}
+
+var fieldIDToName_PaymentServiceCancelPaymentResult = map[int16]string{
+	0: "success",
+}
+
+func (p *PaymentServiceCancelPaymentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *PaymentServiceCancelPaymentResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PaymentServiceCancelPaymentResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewCancelPaymentResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *PaymentServiceCancelPaymentResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CancelPayment_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *PaymentServiceCancelPaymentResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PaymentServiceCancelPaymentResult(%+v)", *p)
+
+}
+
+func (p *PaymentServiceCancelPaymentResult) DeepEqual(ano *PaymentServiceCancelPaymentResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *PaymentServiceCancelPaymentResult) Field0DeepEqual(src *CancelPaymentResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type PaymentServiceTimedCancelPaymentArgs struct {
+	Req *TimedCancelPaymentReq `thrift:"req,3" frugal:"3,default,TimedCancelPaymentReq" json:"req"`
+}
+
+func NewPaymentServiceTimedCancelPaymentArgs() *PaymentServiceTimedCancelPaymentArgs {
+	return &PaymentServiceTimedCancelPaymentArgs{}
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) InitDefault() {
+}
+
+var PaymentServiceTimedCancelPaymentArgs_Req_DEFAULT *TimedCancelPaymentReq
+
+func (p *PaymentServiceTimedCancelPaymentArgs) GetReq() (v *TimedCancelPaymentReq) {
+	if !p.IsSetReq() {
+		return PaymentServiceTimedCancelPaymentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *PaymentServiceTimedCancelPaymentArgs) SetReq(val *TimedCancelPaymentReq) {
+	p.Req = val
+}
+
+var fieldIDToName_PaymentServiceTimedCancelPaymentArgs = map[int16]string{
+	3: "req",
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 3:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PaymentServiceTimedCancelPaymentArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) ReadField3(iprot thrift.TProtocol) error {
+	_field := NewTimedCancelPaymentReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("TimedCancelPayment_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PaymentServiceTimedCancelPaymentArgs(%+v)", *p)
+
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) DeepEqual(ano *PaymentServiceTimedCancelPaymentArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *PaymentServiceTimedCancelPaymentArgs) Field3DeepEqual(src *TimedCancelPaymentReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type PaymentServiceTimedCancelPaymentResult struct {
+	Success *TimedCancelPaymentResp `thrift:"success,0,optional" frugal:"0,optional,TimedCancelPaymentResp" json:"success,omitempty"`
+}
+
+func NewPaymentServiceTimedCancelPaymentResult() *PaymentServiceTimedCancelPaymentResult {
+	return &PaymentServiceTimedCancelPaymentResult{}
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) InitDefault() {
+}
+
+var PaymentServiceTimedCancelPaymentResult_Success_DEFAULT *TimedCancelPaymentResp
+
+func (p *PaymentServiceTimedCancelPaymentResult) GetSuccess() (v *TimedCancelPaymentResp) {
+	if !p.IsSetSuccess() {
+		return PaymentServiceTimedCancelPaymentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *PaymentServiceTimedCancelPaymentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TimedCancelPaymentResp)
+}
+
+var fieldIDToName_PaymentServiceTimedCancelPaymentResult = map[int16]string{
+	0: "success",
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_PaymentServiceTimedCancelPaymentResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewTimedCancelPaymentResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("TimedCancelPayment_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PaymentServiceTimedCancelPaymentResult(%+v)", *p)
+
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) DeepEqual(ano *PaymentServiceTimedCancelPaymentResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *PaymentServiceTimedCancelPaymentResult) Field0DeepEqual(src *TimedCancelPaymentResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

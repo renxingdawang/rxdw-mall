@@ -3,7 +3,7 @@ package cartservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	"github.com/rxdw-mall/server/shared/kitex_gen/cart"
+	cart "github.com/rxdw-mall/server/shared/kitex_gen/cart"
 )
 
 // NewServer creates a server.Server with the given handler and options.

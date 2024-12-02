@@ -3,7 +3,7 @@ package paymentservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	"github.com/rxdw-mall/server/shared/kitex_gen/payment"
+	payment "github.com/rxdw-mall/server/shared/kitex_gen/payment"
 )
 
 // NewServer creates a server.Server with the given handler and options.

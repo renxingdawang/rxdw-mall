@@ -2,6 +2,10 @@ namespace go payment
 
 service PaymentService{
     ChargeResp Charge(1:ChargeReq req)
+    // 取消支付（高级）
+    CancelPaymentResp CancelPayment(2:CancelPaymentReq req)
+    // 定时取消支付（高级）
+    TimedCancelPaymentResp TimedCancelPayment(3:TimedCancelPaymentReq req)
 }
 
 struct CreditCardInfo{
@@ -20,4 +24,23 @@ struct ChargeReq{
 
 struct ChargeResp{
     1:required string transaction_id
+}
+
+struct CancelPaymentReq{
+    1:required string order_id
+    2:required i32 usr_id
+}
+struct TimedCancelPaymentReq{
+    1:required string order_id
+    2:required i32 usr_id
+}
+
+struct CancelPaymentResp{
+    1:required bool success
+    2:required string transaction_id
+}
+
+struct TimedCancelPaymentResp{
+    1:required bool success
+    2:required string transaction_id
 }

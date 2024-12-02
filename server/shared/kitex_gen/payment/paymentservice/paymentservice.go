@@ -7,7 +7,7 @@ import (
 	"errors"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	"github.com/rxdw-mall/server/shared/kitex_gen/payment"
+	payment "github.com/rxdw-mall/server/shared/kitex_gen/payment"
 )
 
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
@@ -17,6 +17,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		chargeHandler,
 		newPaymentServiceChargeArgs,
 		newPaymentServiceChargeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CancelPayment": kitex.NewMethodInfo(
+		cancelPaymentHandler,
+		newPaymentServiceCancelPaymentArgs,
+		newPaymentServiceCancelPaymentResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"TimedCancelPayment": kitex.NewMethodInfo(
+		timedCancelPaymentHandler,
+		newPaymentServiceTimedCancelPaymentArgs,
+		newPaymentServiceTimedCancelPaymentResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -104,6 +118,42 @@ func newPaymentServiceChargeResult() interface{} {
 	return payment.NewPaymentServiceChargeResult()
 }
 
+func cancelPaymentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*payment.PaymentServiceCancelPaymentArgs)
+	realResult := result.(*payment.PaymentServiceCancelPaymentResult)
+	success, err := handler.(payment.PaymentService).CancelPayment(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newPaymentServiceCancelPaymentArgs() interface{} {
+	return payment.NewPaymentServiceCancelPaymentArgs()
+}
+
+func newPaymentServiceCancelPaymentResult() interface{} {
+	return payment.NewPaymentServiceCancelPaymentResult()
+}
+
+func timedCancelPaymentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*payment.PaymentServiceTimedCancelPaymentArgs)
+	realResult := result.(*payment.PaymentServiceTimedCancelPaymentResult)
+	success, err := handler.(payment.PaymentService).TimedCancelPayment(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newPaymentServiceTimedCancelPaymentArgs() interface{} {
+	return payment.NewPaymentServiceTimedCancelPaymentArgs()
+}
+
+func newPaymentServiceTimedCancelPaymentResult() interface{} {
+	return payment.NewPaymentServiceTimedCancelPaymentResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -119,6 +169,26 @@ func (p *kClient) Charge(ctx context.Context, req *payment.ChargeReq) (r *paymen
 	_args.Req = req
 	var _result payment.PaymentServiceChargeResult
 	if err = p.c.Call(ctx, "Charge", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CancelPayment(ctx context.Context, req *payment.CancelPaymentReq) (r *payment.CancelPaymentResp, err error) {
+	var _args payment.PaymentServiceCancelPaymentArgs
+	_args.Req = req
+	var _result payment.PaymentServiceCancelPaymentResult
+	if err = p.c.Call(ctx, "CancelPayment", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) TimedCancelPayment(ctx context.Context, req *payment.TimedCancelPaymentReq) (r *payment.TimedCancelPaymentResp, err error) {
+	var _args payment.PaymentServiceTimedCancelPaymentArgs
+	_args.Req = req
+	var _result payment.PaymentServiceTimedCancelPaymentResult
+	if err = p.c.Call(ctx, "TimedCancelPayment", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -7,7 +7,7 @@ import (
 	"errors"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	"github.com/rxdw-mall/server/shared/kitex_gen/order"
+	order "github.com/rxdw-mall/server/shared/kitex_gen/order"
 )
 
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
@@ -31,6 +31,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		markOrderPaidHandler,
 		newOrderServiceMarkOrderPaidArgs,
 		newOrderServiceMarkOrderPaidResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CancelOrder": kitex.NewMethodInfo(
+		cancelOrderHandler,
+		newOrderServiceCancelOrderArgs,
+		newOrderServiceCancelOrderResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -154,6 +161,24 @@ func newOrderServiceMarkOrderPaidResult() interface{} {
 	return order.NewOrderServiceMarkOrderPaidResult()
 }
 
+func cancelOrderHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*order.OrderServiceCancelOrderArgs)
+	realResult := result.(*order.OrderServiceCancelOrderResult)
+	success, err := handler.(order.OrderService).CancelOrder(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newOrderServiceCancelOrderArgs() interface{} {
+	return order.NewOrderServiceCancelOrderArgs()
+}
+
+func newOrderServiceCancelOrderResult() interface{} {
+	return order.NewOrderServiceCancelOrderResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -189,6 +214,16 @@ func (p *kClient) MarkOrderPaid(ctx context.Context, req *order.MarkOrderPaidReq
 	_args.Req = req
 	var _result order.OrderServiceMarkOrderPaidResult
 	if err = p.c.Call(ctx, "MarkOrderPaid", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CancelOrder(ctx context.Context, req *order.CancelOrderReq) (r *order.CancelOrderResp, err error) {
+	var _args order.OrderServiceCancelOrderArgs
+	_args.Req = req
+	var _result order.OrderServiceCancelOrderResult
+	if err = p.c.Call(ctx, "CancelOrder", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

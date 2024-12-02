@@ -6,6 +6,7 @@ service OrderService{
     PlaceOrderResp PlaceOrder(1:PlaceOrderReq req)
     ListOrderResp ListOrder(2:ListOrderReq req)
     MarkOrderPaidResp MarkOrderPaid(3:MarkOrderPaidReq req)
+    CancelOrderResp CancelOrder(4:CancelOrderReq req)
 }
 
 struct Address{
@@ -57,3 +58,11 @@ struct MarkOrderPaidReq{
 }
 
 struct MarkOrderPaidResp{}
+
+struct CancelOrderReq{
+    1:required i32 user_id
+    2:required string order_id
+}
+struct CancelOrderResp{
+    1:required bool success
+}

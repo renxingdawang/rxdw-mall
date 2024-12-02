@@ -6,12 +6,14 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	"github.com/rxdw-mall/server/shared/kitex_gen/payment"
+	payment "github.com/rxdw-mall/server/shared/kitex_gen/payment"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	Charge(ctx context.Context, req *payment.ChargeReq, callOptions ...callopt.Option) (r *payment.ChargeResp, err error)
+	CancelPayment(ctx context.Context, req *payment.CancelPaymentReq, callOptions ...callopt.Option) (r *payment.CancelPaymentResp, err error)
+	TimedCancelPayment(ctx context.Context, req *payment.TimedCancelPaymentReq, callOptions ...callopt.Option) (r *payment.TimedCancelPaymentResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +48,14 @@ type kPaymentServiceClient struct {
 func (p *kPaymentServiceClient) Charge(ctx context.Context, req *payment.ChargeReq, callOptions ...callopt.Option) (r *payment.ChargeResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Charge(ctx, req)
+}
+
+func (p *kPaymentServiceClient) CancelPayment(ctx context.Context, req *payment.CancelPaymentReq, callOptions ...callopt.Option) (r *payment.CancelPaymentResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CancelPayment(ctx, req)
+}
+
+func (p *kPaymentServiceClient) TimedCancelPayment(ctx context.Context, req *payment.TimedCancelPaymentReq, callOptions ...callopt.Option) (r *payment.TimedCancelPaymentResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.TimedCancelPayment(ctx, req)
 }
