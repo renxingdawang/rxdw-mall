@@ -6,13 +6,14 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	"github.com/rxdw-mall/server/shared/kitex_gen/auth"
+	auth "github.com/rxdw-mall/server/shared/kitex_gen/auth"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	DeliverTokenByRPC(ctx context.Context, req *auth.DeliverTokenReq, callOptions ...callopt.Option) (r *auth.DeliveryResp, err error)
 	VerifyTokenByRpc(ctx context.Context, req *auth.VerifyTokenReq, callOptions ...callopt.Option) (r *auth.VerifyResp, err error)
+	RenewTokenByRpc(ctx context.Context, req *auth.RenewTokenReq, callOptions ...callopt.Option) (r *auth.RenewTokenResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -52,4 +53,9 @@ func (p *kAuthServiceClient) DeliverTokenByRPC(ctx context.Context, req *auth.De
 func (p *kAuthServiceClient) VerifyTokenByRpc(ctx context.Context, req *auth.VerifyTokenReq, callOptions ...callopt.Option) (r *auth.VerifyResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.VerifyTokenByRpc(ctx, req)
+}
+
+func (p *kAuthServiceClient) RenewTokenByRpc(ctx context.Context, req *auth.RenewTokenReq, callOptions ...callopt.Option) (r *auth.RenewTokenResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.RenewTokenByRpc(ctx, req)
 }

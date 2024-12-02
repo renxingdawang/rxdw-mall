@@ -19,3 +19,9 @@ func (s *AuthServiceImpl) VerifyTokenByRpc(ctx context.Context, req *auth.Verify
 	// TODO: Your code here...
 	return
 }
+
+// RenewTokenByRpc implements the AuthServiceImpl interface.
+func (s *AuthServiceImpl) RenewTokenByRpc(ctx context.Context, req *auth.RenewTokenReq) (resp *auth.RenewTokenResp, err error) {
+	// TODO: Your code here...
+	return
+}

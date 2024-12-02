@@ -7,7 +7,7 @@ import (
 	"errors"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	"github.com/rxdw-mall/server/shared/kitex_gen/auth"
+	auth "github.com/rxdw-mall/server/shared/kitex_gen/auth"
 )
 
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
@@ -24,6 +24,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		verifyTokenByRpcHandler,
 		newAuthServiceVerifyTokenByRpcArgs,
 		newAuthServiceVerifyTokenByRpcResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"RenewTokenByRpc": kitex.NewMethodInfo(
+		renewTokenByRpcHandler,
+		newAuthServiceRenewTokenByRpcArgs,
+		newAuthServiceRenewTokenByRpcResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -129,6 +136,24 @@ func newAuthServiceVerifyTokenByRpcResult() interface{} {
 	return auth.NewAuthServiceVerifyTokenByRpcResult()
 }
 
+func renewTokenByRpcHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*auth.AuthServiceRenewTokenByRpcArgs)
+	realResult := result.(*auth.AuthServiceRenewTokenByRpcResult)
+	success, err := handler.(auth.AuthService).RenewTokenByRpc(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAuthServiceRenewTokenByRpcArgs() interface{} {
+	return auth.NewAuthServiceRenewTokenByRpcArgs()
+}
+
+func newAuthServiceRenewTokenByRpcResult() interface{} {
+	return auth.NewAuthServiceRenewTokenByRpcResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -154,6 +179,16 @@ func (p *kClient) VerifyTokenByRpc(ctx context.Context, req *auth.VerifyTokenReq
 	_args.Req = req
 	var _result auth.AuthServiceVerifyTokenByRpcResult
 	if err = p.c.Call(ctx, "VerifyTokenByRpc", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) RenewTokenByRpc(ctx context.Context, req *auth.RenewTokenReq) (r *auth.RenewTokenResp, err error) {
+	var _args auth.AuthServiceRenewTokenByRpcArgs
+	_args.Req = req
+	var _result auth.AuthServiceRenewTokenByRpcResult
+	if err = p.c.Call(ctx, "RenewTokenByRpc", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
