@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS 'rxwlmall'
+CREATE DATABASE IF NOT EXISTS 'rxdwMall'
     DEFAULT CHARACTER SET ='utf8mb4';
 
 -- user table
