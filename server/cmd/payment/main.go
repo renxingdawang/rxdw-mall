@@ -1,7 +1,7 @@
 package main
 
 import (
-	payment "github.com/rxdw-mall/server/shared/kitex_gen/payment/paymentservice"
+	payment "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/payment/paymentservice"
 	"log"
 )
 

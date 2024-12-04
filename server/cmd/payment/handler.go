@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/rxdw-mall/server/shared/kitex_gen/payment"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/payment"
 )
 
 // PaymentServiceImpl implements the last service interface defined in the IDL.

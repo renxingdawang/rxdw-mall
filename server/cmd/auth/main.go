@@ -1,7 +1,7 @@
 package main
 
 import (
-	auth "github.com/rxdw-mall/server/shared/kitex_gen/auth/authservice"
+	auth "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth/authservice"
 	"log"
 )
 

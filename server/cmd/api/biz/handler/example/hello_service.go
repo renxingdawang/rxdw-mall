@@ -7,7 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	example "github.com/rxdw-mall/biz/model/example"
+	example "github.com/renxingdawang/rxdw-mall/api/biz/model/example"
 )
 
 // HelloMethod .
@@ -22,6 +22,6 @@ func HelloMethod(ctx context.Context, c *app.RequestContext) {
 	}
 
 	resp := new(example.HelloResp)
-	resp.RespBody = "hello," + req.Name
+
 	c.JSON(consts.StatusOK, resp)
 }

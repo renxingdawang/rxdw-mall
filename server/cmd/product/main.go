@@ -1,7 +1,7 @@
 package main
 
 import (
-	product "github.com/rxdw-mall/server/shared/kitex_gen/product/productcatalogservice"
+	product "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/product/productcatalogservice"
 	"log"
 )
 

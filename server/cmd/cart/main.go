@@ -1,7 +1,7 @@
 package main
 
 import (
-	cart "github.com/rxdw-mall/server/shared/kitex_gen/cart/cartservice"
+	cart "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/cart/cartservice"
 	"log"
 )
 

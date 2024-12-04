@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/rxdw-mall/server/shared/kitex_gen/product"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/product"
 )
 
 // ProductCatalogServiceImpl implements the last service interface defined in the IDL.

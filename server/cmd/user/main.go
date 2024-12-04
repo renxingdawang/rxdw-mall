@@ -1,7 +1,7 @@
 package main
 
 import (
-	user "github.com/rxdw-mall/server/shared/kitex_gen/user/userservice"
+	user "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/user/userservice"
 	"log"
 )
 

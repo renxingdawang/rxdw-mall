@@ -1,7 +1,7 @@
 package main
 
 import (
-	order "github.com/rxdw-mall/server/shared/kitex_gen/order/orderservice"
+	order "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/order/orderservice"
 	"log"
 )
 
