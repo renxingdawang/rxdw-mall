@@ -1,4 +1,4 @@
-module github.com/rxdw-mall
+module github.com/renxingdawang/rxdw-mall
 
 go 1.23.3
 
