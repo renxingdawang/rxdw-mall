@@ -41,3 +41,17 @@ services:
       - "8301:8301"
       - "8302:8302"
       - "8600:8600/udp"
+  #minio
+  minio:
+    image: minio/minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "19001:9001"
+    container_name: minio
+    hostname: minio
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=_admin123
+
