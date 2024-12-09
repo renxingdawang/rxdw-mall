@@ -3,8 +3,8 @@ package initialize
 import (
 	"flag"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/rxdw-mall/server/shared/consts"
-	"github.com/rxdw-mall/server/shared/tools"
+	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
+	"github.com/renxingdawang/rxdw-mall/server/shared/tools"
 )
 
 func InitFlag() (string, int) {

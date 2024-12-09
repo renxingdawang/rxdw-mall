@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"github.com/rxdw-mall/server/shared/consts"
+	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"net"
 )
 

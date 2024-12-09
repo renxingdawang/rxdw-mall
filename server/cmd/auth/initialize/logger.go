@@ -3,7 +3,7 @@ package initialize
 import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/rxdw-mall/server/shared/consts"
+	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"path"
