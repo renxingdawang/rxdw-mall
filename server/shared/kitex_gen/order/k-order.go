@@ -10,7 +10,7 @@ import (
 
 	"github.com/cloudwego/gopkg/protocol/thrift"
 
-	"github.com/rxdw-mall/server/shared/kitex_gen/cart"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/cart"
 )
 
 var (

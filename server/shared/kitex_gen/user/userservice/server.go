@@ -3,7 +3,7 @@ package userservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	"github.com/rxdw-mall/server/shared/kitex_gen/user"
+	user "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/user"
 )
 
 // NewServer creates a server.Server with the given handler and options.

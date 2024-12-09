@@ -5,15 +5,16 @@ package checkout
 import (
 	"bytes"
 	"fmt"
-	payment2 "github.com/rxdw-mall/server/shared/kitex_gen/payment"
 	"reflect"
 	"strings"
 
 	"github.com/cloudwego/gopkg/protocol/thrift"
+
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/payment"
 )
 
 var (
-	_ = payment2.KitexUnusedProtection
+	_ = payment.KitexUnusedProtection
 )
 
 // unused protection
@@ -567,7 +568,7 @@ func (p *CheckoutReq) FastReadField5(buf []byte) (int, error) {
 
 func (p *CheckoutReq) FastReadField6(buf []byte) (int, error) {
 	offset := 0
-	_field := payment2.NewCreditCardInfo()
+	_field := payment.NewCreditCardInfo()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
