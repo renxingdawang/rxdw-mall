@@ -8,10 +8,25 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/cloudwego/gopkg v0.1.3-0.20241115063537-a218fe69d609
 	github.com/cloudwego/kitex v0.11.3
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/hashicorp/consul/api v1.30.0
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20241120035129-55da83caab1b
 	github.com/kitex-contrib/registry-consul v0.1.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+	gorm.io/gen v0.3.26
+	gorm.io/gorm v1.25.12
+	gorm.io/plugin/dbresolver v1.5.3
+)
+
+require (
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
+	golang.org/x/mod v0.14.0 // indirect
+	golang.org/x/tools v0.17.0 // indirect
+	gorm.io/datatypes v1.1.1-0.20230130040222-c43177d3cf8c // indirect
+	gorm.io/driver/mysql v1.5.7 // indirect
+	gorm.io/hints v1.1.0 // indirect
 )
 
 require (

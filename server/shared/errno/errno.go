@@ -2,7 +2,7 @@ package errno
 
 import (
 	"fmt"
-	"github.com/rxdw-mall/server/shared/kitex_gen/errno"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/errno"
 )
 
 type Errno struct {
