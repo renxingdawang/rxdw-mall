@@ -1,6 +1,15 @@
 package consts
 
+import "time"
+
 const (
+	RxdwMall    = "rxdwMall"
+	Issuer      = "FreeCar"
+	Admin       = "Admin"
+	User        = "User"
+	ThirtyDays  = time.Hour * 24 * 30
+	AccountID   = "accountID"
+	ID          = "id"
 	IPFlagName  = "ip"
 	IPFlagValue = "0.0.0.0"
 	IPFlagUsage = "address"
@@ -17,4 +26,12 @@ const (
 
 	HlogFilePath = "./tmp/hlog/logs/"
 	KlogFilePath = "./tmp/klog/logs/"
+	MySqlDSN     = "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
+
+	MySQLImage         = "mysql:latest"
+	MySQLContainerPort = "3306/tcp"
+	MySQLContainerIP   = "121.40.228.214"
+	MySQLPort          = "0"
+	MySQLAdmin         = "root"
+	DockerTestMySQLPwd = "123456"
 )
