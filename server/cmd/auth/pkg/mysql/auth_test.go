@@ -1,7 +1,10 @@
 package mysql
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestAuthMysql(t *testing.T) {
 	//db:=
+
 }

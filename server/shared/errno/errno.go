@@ -40,4 +40,5 @@ var (
 	ParamsErr      = NewErrNo(int64(errno.Err_ParamsErr), "paramsErr")
 	AuthorizeFail  = NewErrNo(int64(errno.Err_AuthorizeFail), "AuthorizeFail")
 	TooManyRequest = NewErrNo(int64(errno.Err_TooManyRequest), "Too many requests")
+	AuthSrvErr     = NewErrNo(int64(errno.Err_AuthSrvErr), "user service error")
 )

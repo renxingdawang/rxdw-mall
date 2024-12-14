@@ -3,15 +3,18 @@ package main
 import (
 	"context"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/initialize"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql/dao"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql/model"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql"
 	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth"
 	"time"
 )
 
 // AuthServiceImpl implements the last service interface defined in the IDL.
-type AuthServiceImpl struct{}
+type AuthServiceImpl struct {
+	AuthManger
+}
+type AuthManger interface {
+	CreateToken(token *mysql.Token) (*mysql.Token, error)
+}
 
 var jwtSecret = []byte("your-secret-key")
 
@@ -28,19 +31,12 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 	resp = auth.NewDeliveryResp()
 	resp.SetToken(tokenString)
 	//将token存入mysql token table
-	// TODO: Your code here...
-	db := initialize.InitDB()
-	q := dao.Use(db)
-	newToken := &model.Token{
+
+	_, _ = s.AuthManger.CreateToken(&mysql.Token{
 		UserID:    req.GetUserId(),
 		Token:     tokenString,
-		CreatedAt: time.Now(),
 		ExpiredAt: time.Now().Add(time.Hour),
-	}
-	err = q.WithContext(ctx).Token.Create(newToken)
-	if err != nil {
-		return nil, err
-	}
+	})
 	return resp, nil
 }
 
