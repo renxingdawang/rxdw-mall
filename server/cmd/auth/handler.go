@@ -31,7 +31,6 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 	resp = auth.NewDeliveryResp()
 	resp.SetToken(tokenString)
 	//将token存入mysql token table
-
 	_, _ = s.AuthManger.CreateToken(&mysql.Token{
 		UserID:    req.GetUserId(),
 		Token:     tokenString,

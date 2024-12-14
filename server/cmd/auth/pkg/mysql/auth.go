@@ -26,6 +26,5 @@ func (m *AuthManager) CreateToken(token *Token) (*Token, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return token, nil
 }
