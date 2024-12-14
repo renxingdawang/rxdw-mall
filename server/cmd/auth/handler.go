@@ -13,7 +13,7 @@ type AuthServiceImpl struct {
 	AuthManger
 }
 type AuthManger interface {
-	CreateToken(token *mysql.Token) (*mysql.Token, error)
+	CreateToken(ctx context.Context, token *mysql.Token) (*mysql.Token, error)
 }
 
 var jwtSecret = []byte("your-secret-key")
@@ -31,7 +31,7 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 	resp = auth.NewDeliveryResp()
 	resp.SetToken(tokenString)
 	//将token存入mysql token table
-	_, _ = s.AuthManger.CreateToken(&mysql.Token{
+	_, _ = s.AuthManger.CreateToken(ctx, &mysql.Token{
 		UserID:    req.GetUserId(),
 		Token:     tokenString,
 		ExpiredAt: time.Now().Add(time.Hour),
@@ -42,6 +42,7 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 // VerifyTokenByRpc implements the AuthServiceImpl interface.
 func (s *AuthServiceImpl) VerifyTokenByRpc(ctx context.Context, req *auth.VerifyTokenReq) (resp *auth.VerifyResp, err error) {
 	// TODO: Your code here...
+
 	return
 }
 

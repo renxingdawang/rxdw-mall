@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"context"
 	"github.com/renxingdawang/rxdw-mall/server/shared/errno"
 	"gorm.io/gorm"
 	"time"
@@ -18,13 +19,28 @@ type AuthManager struct {
 	db *gorm.DB
 }
 
-func (m *AuthManager) CreateToken(token *Token) (*Token, error) {
+func (m *AuthManager) CreateToken(ctx context.Context, token *Token) (*Token, error) {
 	if token.Token == "" {
-		return nil, errno.AuthorizeFail.WithMessage("Token is nil")
+		return nil, errno.AuthSrvErr.WithMessage("Token is nil")
 	}
-	err := m.db.Create(&token).Error
+	//err := m.db.withContext(ctx).Create(&token).Error
+	err := m.db.WithContext(ctx).Create(&token).Error
 	if err != nil {
 		return nil, err
 	}
 	return token, nil
+}
+
+func (m *AuthManager) VerifyToken(ctx context.Context, token *Token) (bool, error) {
+	if token.Token == "" {
+		return false, errno.AuthSrvErr.WithMessage("Token is nil")
+	}
+	//查询token是否存在 存在返回true
+	var count int64
+	err := m.db.WithContext(ctx).Model(&Token{}).Where("token=?", token.Token).Count(&count).Error
+	if err != nil {
+		return false, errno.AuthSrvErr.WithMessage("Get auth count error")
+	}
+
+	return count > 0, nil
 }
