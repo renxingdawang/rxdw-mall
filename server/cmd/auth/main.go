@@ -11,7 +11,7 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/config"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/initialize"
-	mysql "github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/paseto"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	auth "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth/authservice"
