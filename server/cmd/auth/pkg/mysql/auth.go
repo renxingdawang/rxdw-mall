@@ -31,16 +31,22 @@ func (m *AuthManager) CreateToken(ctx context.Context, token *Token) (*Token, er
 	return token, nil
 }
 
-func (m *AuthManager) VerifyToken(ctx context.Context, token *Token) (bool, error) {
-	if token.Token == "" {
+func (m *AuthManager) VerifyToken(ctx context.Context, token string) (bool, error) {
+	if token == "" {
 		return false, errno.AuthSrvErr.WithMessage("Token is nil")
 	}
 	//查询token是否存在 存在返回true
 	var count int64
-	err := m.db.WithContext(ctx).Model(&Token{}).Where("token=?", token.Token).Count(&count).Error
+	err := m.db.WithContext(ctx).Model(&Token{}).Where("token=?", token).Count(&count).Error
 	if err != nil {
 		return false, errno.AuthSrvErr.WithMessage("Get auth count error")
 	}
 
 	return count > 0, nil
+}
+
+func (m *AuthManager) RenewToken(ctx context.Context, token string) error {
+	nowTime := time.Now()
+	newExpireAt := nowTime.Add(3 * time.Hour)
+	return m.db.WithContext(ctx).Model(&Token{}).Where("token=?", token).Update("expire_at", newExpireAt).Error
 }
