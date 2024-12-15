@@ -19,6 +19,17 @@ type AuthManager struct {
 	db *gorm.DB
 }
 
+func NewUserManager(db *gorm.DB) *AuthManager {
+	m := db.Migrator()
+	if !m.HasTable(&Token{}) {
+		if err := m.CreateTable(&Token{}); err != nil {
+			panic(err)
+		}
+	}
+	return &AuthManager{
+		db: db,
+	}
+}
 func (m *AuthManager) CreateToken(ctx context.Context, token *Token) (*Token, error) {
 	if token.Token == "" {
 		return nil, errno.AuthSrvErr.WithMessage("Token is nil")
