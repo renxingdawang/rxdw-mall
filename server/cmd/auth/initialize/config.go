@@ -15,7 +15,7 @@ import (
 // InitConfig to init consul config server
 func InitConfig() {
 	v := viper.New()
-	v.SetConfigFile(consts.UserConfigPath)
+	v.SetConfigFile(consts.AuthConfigPath)
 	if err := v.ReadInConfig(); err != nil {
 		hlog.Fatalf("read viper config failed: %s", err.Error())
 	}

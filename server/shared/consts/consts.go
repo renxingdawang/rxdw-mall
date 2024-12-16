@@ -36,11 +36,11 @@ const (
 	DockerTestMySQLPwd = "123456"
 
 	ApiConfigPath      = "./server/cmd/api/config.yaml"
-	AuthConfigPath     = "./server/cmd/user/config.yaml"
-	CartConfigPath     = "./server/cmd/blob/config.yaml"
-	CheckoutConfigPath = "./server/cmd/car/config.yaml"
-	OrderConfigPath    = "./server/cmd/profile/config.yaml"
-	PaymentConfigPath  = "./server/cmd/trip/config.yaml"
-	ProductConfigPath  = "./server/cmd/trip/config.yaml"
-	UserConfigPath     = "./server/cmd/trip/config.yaml"
+	AuthConfigPath     = "./server/cmd/auth/config.yaml"
+	CartConfigPath     = "./server/cmd/cart/config.yaml"
+	CheckoutConfigPath = "./server/cmd/checkout/config.yaml"
+	OrderConfigPath    = "./server/cmd/order/config.yaml"
+	PaymentConfigPath  = "./server/cmd/payment/config.yaml"
+	ProductConfigPath  = "./server/cmd/product/config.yaml"
+	UserConfigPath     = "./server/cmd/user/config.yaml"
 )
