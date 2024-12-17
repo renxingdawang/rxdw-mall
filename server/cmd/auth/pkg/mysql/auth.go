@@ -20,12 +20,12 @@ type AuthManager struct {
 }
 
 func NewUserManager(db *gorm.DB) *AuthManager {
-	m := db.Migrator()
-	if !m.HasTable(&Token{}) {
-		if err := m.CreateTable(&Token{}); err != nil {
-			panic(err)
-		}
-	}
+	//m := db.Migrator()
+	//if !m.HasTable(&Token{}) {
+	//	if err := m.CreateTable(&Token{}); err != nil {
+	//		panic(err)
+	//	}
+	//}
 	return &AuthManager{
 		db: db,
 	}

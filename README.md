@@ -19,3 +19,7 @@ Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀�
 [kItex和Hertz的doc](https://www.cloudwego.io/)
 
 ## 数据库表设计
+
+## WebUI
+
+[consul](http://121.40.228.214:8500/)

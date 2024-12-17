@@ -16,7 +16,7 @@ import (
 
 func InitDB() *gorm.DB {
 	c := config.GlobalServerConfig.MysqlInfo
-	dsn := fmt.Sprintf(consts.MySqlDSN, c.User, c.Password, c.Host, c.Name)
+	dsn := fmt.Sprintf(consts.MySqlDSN, c.User, c.Password, c.Host, c.Port, c.Name)
 	newLogger := logger.New(
 		logrus.NewWriter(),
 		logger.Config{

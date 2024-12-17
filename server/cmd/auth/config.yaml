@@ -1,4 +1,4 @@
 host: '127.0.0.1'
-port: 8530
+port: 8500
 key: 'rxdwmall/auth_srv'
 
