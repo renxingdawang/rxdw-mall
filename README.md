@@ -23,3 +23,7 @@ Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀�
 ## WebUI
 
 [consul](http://121.40.228.214:8500/)
+
+[minio](http://121.40.228.214:19001/)
+
+[jaeger](http://121.40.228.214:16686/)

@@ -32,7 +32,6 @@ func main() {
 	//	provider.WithServiceName(config.GlobalServerConfig.Name),
 	//	provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
 	//	provider.WithInsecure(),
-	//)
 	//defer func(p provider.OtelProvider, ctx context.Context) {
 	//	err := p.Shutdown(ctx)
 	//	if err != nil {
