@@ -17,5 +17,6 @@ func NewTokenGenerator(asymmetricKey string, implicit []byte) (*TokenGenerator, 
 }
 
 func (g *TokenGenerator) CreateToken(claims *paseto.StandardClaims) (token string, err error) {
+
 	return g.GenTokenFunc(claims, nil, nil)
 }

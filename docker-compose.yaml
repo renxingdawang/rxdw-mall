@@ -81,7 +81,7 @@ services:
         - "55679" # zpages extension
     depends_on:
         - jaeger-all-in-one
-
+  # prometheus
   prometheus:
     image: prometheus:latest
     volumes:
@@ -89,3 +89,14 @@ services:
     ports:
       - "9090:9090"
 
+
+  # mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123

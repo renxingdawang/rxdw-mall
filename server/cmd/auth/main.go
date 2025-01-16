@@ -22,12 +22,13 @@ import (
 func main() {
 	initialize.InitLogger()
 	initialize.InitConfig()
+	fmt.Println("success")
 	db := initialize.InitDB()
 	fmt.Println("db ok")
 	IP, Port := initialize.InitFlag()
 	fmt.Println("flag ok")
 	r, info := initialize.InitRegistry(Port)
-
+	fmt.Println("register ok")
 	//p := provider.NewOpenTelemetryProvider(
 	//	provider.WithServiceName(config.GlobalServerConfig.Name),
 	//	provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
@@ -45,7 +46,7 @@ func main() {
 	if err != nil {
 		klog.Fatal(err)
 	}
-
+	fmt.Println("ok tg")
 	svr := auth.NewServer(&AuthServiceImpl{
 		AuthManger:     mysql.NewUserManager(db),
 		TokenGenerator: tg,
@@ -57,7 +58,7 @@ func main() {
 		server.WithSuite(tracing.NewServerSuite()),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.Name}),
 	)
-	fmt.Println("success")
+	fmt.Println("success all")
 	err = svr.Run()
 
 	if err != nil {

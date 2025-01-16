@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"fmt"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/hashicorp/consul/api"
@@ -29,6 +30,7 @@ func InitConfig() {
 		config.GlobalConsulConfig.Host,
 		strconv.Itoa(config.GlobalConsulConfig.Port))
 	consulClient, err := api.NewClient(cfg)
+	fmt.Println("sucess")
 	if err != nil {
 		hlog.Fatalf("new consul client failed: %s", err.Error())
 	}
@@ -48,4 +50,5 @@ func InitConfig() {
 			hlog.Fatalf("get localIpv4Addr failed:%s", err.Error())
 		}
 	}
+
 }
