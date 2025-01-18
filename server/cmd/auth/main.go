@@ -10,8 +10,8 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/config"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/initialize"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/mysql"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/paseto"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/redis"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	auth "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth/authservice"
 	"log"
@@ -23,8 +23,7 @@ func main() {
 	initialize.InitLogger()
 	initialize.InitConfig()
 	fmt.Println("success")
-	db := initialize.InitDB()
-	fmt.Println("db ok")
+	redisClient := initialize.InitRedis()
 	IP, Port := initialize.InitFlag()
 	fmt.Println("flag ok")
 	r, info := initialize.InitRegistry(Port)
@@ -39,7 +38,6 @@ func main() {
 	//
 	//	}
 	//}(p, context.Background())
-
 	tg, err := paseto.NewTokenGenerator(
 		config.GlobalServerConfig.PasetoInfo.SecretKey,
 		[]byte(config.GlobalServerConfig.PasetoInfo.Implicit))
@@ -48,8 +46,8 @@ func main() {
 	}
 	fmt.Println("ok tg")
 	svr := auth.NewServer(&AuthServiceImpl{
-		AuthManger:     mysql.NewUserManager(db),
-		TokenGenerator: tg,
+		TokenGenerator:   tg,
+		AuthRedisManager: redis.NewRedisManager(redisClient),
 	},
 		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(IP, strconv.Itoa(Port)))),
 		server.WithRegistry(r),
@@ -64,5 +62,4 @@ func main() {
 	if err != nil {
 		log.Println(err.Error())
 	}
-
 }

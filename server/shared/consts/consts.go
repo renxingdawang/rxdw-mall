@@ -43,4 +43,6 @@ const (
 	PaymentConfigPath  = "./server/cmd/payment/config.yaml"
 	ProductConfigPath  = "./server/cmd/product/config.yaml"
 	UserConfigPath     = "./server/cmd/user/config.yaml"
+
+	RedisAuthClientDB = 0
 )

@@ -4,7 +4,7 @@
 
 ## 服务分类
 
-* auth 认证服务
+* auth 认证服务![image.png](images/consul/image.png)
 * cart 购物车服务
 * checkout 结算服务
 * order 订单服务

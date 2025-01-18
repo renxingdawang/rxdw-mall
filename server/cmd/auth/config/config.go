@@ -20,11 +20,17 @@ type PasetoConfig struct {
 	SecretKey string `mapstructure:"secret_key" json:"secret_key"`
 	Implicit  string `mapstructure:"implicit" json:"implicit"`
 }
+type RedisConfig struct {
+	Host     string `mapstructure:"host" json:"host"`
+	Port     int    `mapstructure:"port" json:"port"`
+	Password string `mapstructure:"password" json:"password"`
+}
 type ServerConfig struct {
 	Name       string       `mapstructure:"name" json:"name"`
 	Host       string       `mapstructure:"host" json:"host"`
 	PasetoInfo PasetoConfig `mapstructure:"paseto" json:"paseto"`
 	WsAddr     string       `mapstructure:"wsAddr" json:"wsAddr"`
 	MysqlInfo  MysqlConfig  `mapstructure:"mysql" json:"mysql"`
+	RedisInfo  RedisConfig  `mapstructure:"redis" json:"redis"`
 	OtelInfo   OtelConfig   `mapstructure:"otel" json:"otel"`
 }
