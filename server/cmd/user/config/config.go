@@ -17,11 +17,12 @@ type OtelConfig struct {
 	EndPoint string `mapstructure:"endpoint" json:"endpoint"`
 }
 type ServerConfig struct {
-	Name      string      `mapstructure:"name" json:"name"`
-	Host      string      `mapstructure:"host" json:"host"`
-	WsAddr    string      `mapstructure:"wsAddr" json:"wsAddr"`
-	MysqlInfo MysqlConfig `mapstructure:"mysql" json:"mysql"`
-	OtelInfo  OtelConfig  `mapstructure:"otel" json:"otel"`
+	Name        string        `mapstructure:"name" json:"name"`
+	Host        string        `mapstructure:"host" json:"host"`
+	WsAddr      string        `mapstructure:"wsAddr" json:"wsAddr"`
+	MysqlInfo   MysqlConfig   `mapstructure:"mysql" json:"mysql"`
+	OtelInfo    OtelConfig    `mapstructure:"otel" json:"otel"`
+	AuthSrvInfo AuthSrvConfig `mapstructure:"auth_srv" json:"auth_srv"`
 }
 type AuthSrvConfig struct {
 	Name string `mapstructure:"name" json:"name"`
