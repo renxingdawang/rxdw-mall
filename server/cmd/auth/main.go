@@ -14,7 +14,6 @@ import (
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/pkg/redis"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	auth "github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth/authservice"
-	"log"
 	"net"
 	"strconv"
 )
@@ -45,7 +44,7 @@ func main() {
 		klog.Fatal(err)
 	}
 	fmt.Println("ok tg")
-	svr := auth.NewServer(&AuthServiceImpl{
+	srv := auth.NewServer(&AuthServiceImpl{
 		TokenGenerator:   tg,
 		AuthRedisManager: redis.NewRedisManager(redisClient),
 	},
@@ -57,9 +56,8 @@ func main() {
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.Name}),
 	)
 	fmt.Println("success all")
-	err = svr.Run()
-
+	err = srv.Run()
 	if err != nil {
-		log.Println(err.Error())
+		klog.Fatal(err)
 	}
 }
