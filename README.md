@@ -27,3 +27,10 @@ Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀�
 [minio](http://121.40.228.214:19001/)
 
 [jaeger](http://121.40.228.214:16686/)
+
+
+## docker compose
+
+Goland的docker compose会出问题 直接在linux上使用一下command
+
+`docker compose -p <project_name> up <service_name>`
