@@ -28,6 +28,8 @@ Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀�
 
 [jaeger](http://121.40.228.214:16686/)
 
+[prometheus](http://121.40.228.214:3000/)
+
 
 ## docker compose
 

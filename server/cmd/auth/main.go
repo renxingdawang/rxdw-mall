@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/utils"
 	"github.com/cloudwego/kitex/server"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/config"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/auth/initialize"
@@ -27,16 +29,17 @@ func main() {
 	fmt.Println("flag ok")
 	r, info := initialize.InitRegistry(Port)
 	fmt.Println("register ok")
-	//p := provider.NewOpenTelemetryProvider(
-	//	provider.WithServiceName(config.GlobalServerConfig.Name),
-	//	provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
-	//	provider.WithInsecure(),
-	//defer func(p provider.OtelProvider, ctx context.Context) {
-	//	err := p.Shutdown(ctx)
-	//	if err != nil {
-	//
-	//	}
-	//}(p, context.Background())
+	p := provider.NewOpenTelemetryProvider(
+		provider.WithServiceName(config.GlobalServerConfig.Name),
+		provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
+		provider.WithInsecure(),
+	)
+	defer func(p provider.OtelProvider, ctx context.Context) {
+		err := p.Shutdown(ctx)
+		if err != nil {
+
+		}
+	}(p, context.Background())
 	tg, err := paseto.NewTokenGenerator(
 		config.GlobalServerConfig.PasetoInfo.SecretKey,
 		[]byte(config.GlobalServerConfig.PasetoInfo.Implicit))
