@@ -80,13 +80,7 @@ services:
         - "55679" # zpages extension
     depends_on:
         - jaeger-all-in-one
-  # prometheus
-  prometheus:
-    image: prometheus:latest
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
+
 
 
   # mongo
@@ -117,3 +111,14 @@ services:
       - '--httpListenAddr=:8428'
       - '--influxListenAddr=:8089'
     restart: always
+
+
+    # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest

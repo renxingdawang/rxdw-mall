@@ -4,13 +4,18 @@
 
 ## 服务分类
 
-* auth 认证服务![image.png](images/consul/image.png)
+auth 认证服务![image.png](images/consul/image.png)
+
 * cart 购物车服务
 * checkout 结算服务
+
 * order 订单服务
 * payment 支付服务
+
 * product 商品服务
 * user 用户服务
+
+***商品->购物车->结算&支付->订单***
 
 ## 技术栈
 
@@ -30,6 +35,7 @@ Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀�
 
 [prometheus](http://121.40.228.214:3000/)
 
+[rabbitmq-console](http://http://121.40.228.214:15672/)
 
 ## docker compose
 
