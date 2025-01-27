@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/product/config"
 
 	"github.com/renxingdawang/rxdw-mall/server/cmd/product/pkg/mysql"
 	"time"
@@ -17,7 +18,7 @@ type ProductRedisManager struct {
 }
 
 func NewRedisManager(p mysql.ProductMysqlManager, client *redis.Client) *ProductRedisManager {
-	return &ProductRedisManager{productMysqlManager: p, client: client, prefix: ""}
+	return &ProductRedisManager{productMysqlManager: p, client: client, prefix: config.GlobalServerConfig.RedisInfo.Prefix}
 }
 
 func (p *ProductRedisManager) GetByID(ctx context.Context, productId int) (product mysql.Product, err error) {
