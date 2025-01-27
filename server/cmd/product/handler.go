@@ -26,7 +26,6 @@ type ProductRedisManager interface {
 
 // ListProducts implements the ProductCatalogServiceImpl interface.
 func (s *ProductCatalogServiceImpl) ListProducts(ctx context.Context, req *product.ListProductsReq) (resp *product.ListProductsResp, err error) {
-	// TODO: Your code here...
 	c, err := s.CategoryMysqlManager.GetProductsByCategoryName(ctx, req.GetCategoryName())
 	if err != nil {
 		return nil, err
@@ -42,7 +41,6 @@ func (s *ProductCatalogServiceImpl) ListProducts(ctx context.Context, req *produ
 
 // GetProduct implements the ProductCatalogServiceImpl interface.
 func (s *ProductCatalogServiceImpl) GetProduct(ctx context.Context, req *product.GetProductReq) (resp *product.GetProductResp, err error) {
-	// TODO: Your code here...
 	if req.GetId() == 0 {
 		return nil, errno.ProductSrvErr.WithMessage("product id is required")
 	}
@@ -63,7 +61,6 @@ func (s *ProductCatalogServiceImpl) GetProduct(ctx context.Context, req *product
 
 // SearchProducts implements the ProductCatalogServiceImpl interface.
 func (s *ProductCatalogServiceImpl) SearchProducts(ctx context.Context, req *product.SearchProductsReq) (resp *product.SearchProductsResp, err error) {
-	// TODO: Your code here...
 	p, err := s.ProductMysqlManager.SearchProduct(ctx, req.GetQuery())
 	var results []*product.Product
 	for _, v := range p {

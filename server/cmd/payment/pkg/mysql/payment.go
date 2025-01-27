@@ -18,7 +18,7 @@ type PaymentLogMysqlManager struct {
 	db *gorm.DB
 }
 
-func NewUserMysqlManager(db *gorm.DB) *PaymentLogMysqlManager {
+func NewPaymentLogMysqlManager(db *gorm.DB) *PaymentLogMysqlManager {
 	m := db.Migrator()
 	if !m.HasTable(&PaymentLog{}) {
 		if err := m.CreateTable(&PaymentLog{}); err != nil {

@@ -43,7 +43,7 @@ func main() {
 	fmt.Println("ok tg")
 
 	srv := payment.NewServer(&PaymentServiceImpl{
-		PaymentLogMysqlManager: mysql.NewUserMysqlManager(db),
+		PaymentLogMysqlManager: mysql.NewPaymentLogMysqlManager(db),
 	},
 		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(IP, strconv.Itoa(Port)))),
 		server.WithRegistry(r),
