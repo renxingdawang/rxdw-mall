@@ -14,14 +14,14 @@ import (
 type ProductRedisManager struct {
 	client              *redis.Client
 	prefix              string
-	productMysqlManager mysql.ProductMysqlManager
+	productMysqlManager *mysql.ProductMysqlManager
 }
 
-func NewRedisManager(p mysql.ProductMysqlManager, client *redis.Client) *ProductRedisManager {
+func NewRedisManager(p *mysql.ProductMysqlManager, client *redis.Client) *ProductRedisManager {
 	return &ProductRedisManager{productMysqlManager: p, client: client, prefix: config.GlobalServerConfig.RedisInfo.Prefix}
 }
 
-func (p *ProductRedisManager) GetByID(ctx context.Context, productId int) (product mysql.Product, err error) {
+func (p *ProductRedisManager) GetByID(ctx context.Context, productId int32) (product mysql.Product, err error) {
 	cacheKey := fmt.Sprintf("%s_%s_%d", p.prefix, "product_by_id", productId)
 	cacheResult := p.client.Get(ctx, cacheKey)
 	err = func() error {

@@ -10,11 +10,11 @@ type Product struct {
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	Picture     string     `json:"picture"`
-	Price       float32    `json:"price"`
+	Price       float64    `json:"price"`
 	Categories  []Category `json:"categories" gorm:"many2many:product_category"`
 }
 
-func (p Product) TableName() string {
+func (p *Product) TableName() string {
 	return "product"
 }
 
@@ -33,7 +33,7 @@ func NewProductMysqlManager(db *gorm.DB) *ProductMysqlManager {
 		db: db,
 	}
 }
-func (p *ProductMysqlManager) GetById(ctx context.Context, productId int) (product Product, err error) {
+func (p *ProductMysqlManager) GetById(ctx context.Context, productId int32) (product Product, err error) {
 	err = p.db.WithContext(ctx).Model(&Product{}).Where(&Product{Base: Base{ID: productId}}).First(&product).Error
 	return
 }

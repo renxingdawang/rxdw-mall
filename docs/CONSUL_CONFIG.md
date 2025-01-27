@@ -38,3 +38,27 @@
   }
 }
 ```
+
+*rxdwmall/product_srv*
+
+```apache
+{
+  "name": "product_srv",
+  "mysql":{
+    "host":"127.0.0.1",
+    "port":3306,
+    "user":"root",
+    "password":"123456",
+    "db":"rxdwMall",
+    "salt":"abcdef"
+  },
+  "otel":{
+  	"endpoint":":4317"
+  },
+  "redis":{
+    "host":"127.0.0.1",
+    "port":6379,
+    "prefix":"rxdw_mall"
+  }
+}
+```
