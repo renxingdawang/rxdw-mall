@@ -8,10 +8,8 @@ auth 认证服务![image.png](images/consul/image.png)
 
 * cart 购物车服务
 * checkout 结算服务
-
 * order 订单服务
 * payment 支付服务
-
 * product 商品服务
 * user 用户服务
 
@@ -22,6 +20,10 @@ auth 认证服务![image.png](images/consul/image.png)
 Go+Kitex+Hertz+Consul+Gorm+MySQL+Redis+Jaeger+OpenTelemetry🚀️ 🚀️ 🚀️
 
 [kItex和Hertz的doc](https://www.cloudwego.io/)
+
+指标 链路 日志
+
+
 
 ## 数据库表设计
 

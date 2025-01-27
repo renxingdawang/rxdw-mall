@@ -16,3 +16,25 @@
   }
 }
 ```
+
+*rxdwmall/user_srv*
+
+```apache
+{
+  "name": "user_srv",
+  "mysql":{
+    "host":"127.0.0.1",
+    "port":3306,
+    "user":"root",
+    "password":"123456",
+    "db":"rxdwMall",
+    "salt":"abcdef"
+  },
+  "auth_srv":{
+  	"name":"auth_srv"
+	},
+  "otel":{
+  	"endpoint":":4317"
+  }
+}
+```
