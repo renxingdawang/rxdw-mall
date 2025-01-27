@@ -9,6 +9,7 @@ require (
 	github.com/cloudwego/gopkg v0.1.3-0.20241115063537-a218fe69d609
 	github.com/cloudwego/hertz v0.6.0
 	github.com/cloudwego/kitex v0.11.3
+	github.com/durango/go-credit-card v0.0.0-20220404131259-a9e175ba4082
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/hashicorp/consul/api v1.30.0
 	github.com/hertz-contrib/paseto v0.0.0-20230508023022-71af6635a26c
