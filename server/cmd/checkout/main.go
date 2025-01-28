@@ -27,6 +27,7 @@ func main() {
 	fmt.Println("flag ok")
 	r, info := initialize.InitRegistry(Port)
 	fmt.Println("register ok")
+
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(config.GlobalServerConfig.Name),
 		provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
