@@ -1,9 +1,9 @@
-package initalize
+package initialize
 
 import (
 	"fmt"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/checkout/config"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/order/config"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -1,4 +1,4 @@
-package initalize
+package initialize
 
 import (
 	"fmt"
@@ -11,10 +11,10 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/checkout/config"
-	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/product/productcatalogservice"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/order/orderservice"
 )
 
-func InitProduct() productcatalogservice.Client {
+func InitOrder() orderservice.Client {
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,
 		config.GlobalConsulConfig.Port))
@@ -27,13 +27,13 @@ func InitProduct() productcatalogservice.Client {
 		provider.WithInsecure(), //ban TLS ,在内部网络 无需使用
 	)
 	//create a new client
-	c, err := productcatalogservice.NewClient(
-		config.GlobalServerConfig.ProductSrvInfo.Name,
+	c, err := orderservice.NewClient(
+		config.GlobalServerConfig.OrderSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
 		client.WithMuxConnection(1),                                // multiplexing 配置连接复用
 		client.WithSuite(tracing.NewClientSuite()),                 //配置分布式追踪
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.ProductSrvInfo.Name}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.OrderSrvInfo.Name}),
 	)
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)

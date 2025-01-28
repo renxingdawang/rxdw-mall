@@ -1,4 +1,4 @@
-package initalize
+package initialize
 
 import (
 	"github.com/cloudwego/kitex/pkg/klog"

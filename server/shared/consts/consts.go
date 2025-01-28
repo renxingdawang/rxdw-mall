@@ -46,3 +46,11 @@ const (
 
 	RedisAuthClientDB = 0
 )
+
+type OrderState string
+
+const (
+	OrderStatePlaced   OrderState = "placed"
+	OrderStatePaid     OrderState = "paid"
+	OrderStateCanceled OrderState = "canceled"
+)

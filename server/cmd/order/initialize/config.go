@@ -1,10 +1,11 @@
-package initalize
+package initialize
 
 import (
+	"fmt"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/hashicorp/consul/api"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/checkout/config"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/order/config"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"github.com/renxingdawang/rxdw-mall/server/shared/tools"
 	"github.com/spf13/viper"
@@ -15,7 +16,7 @@ import (
 // InitConfig to init consul config server
 func InitConfig() {
 	v := viper.New()
-	v.SetConfigFile(consts.ProductConfigPath)
+	v.SetConfigFile(consts.OrderConfigPath)
 	if err := v.ReadInConfig(); err != nil {
 		hlog.Fatalf("read viper config failed: %s", err.Error())
 	}
@@ -29,6 +30,7 @@ func InitConfig() {
 		config.GlobalConsulConfig.Host,
 		strconv.Itoa(config.GlobalConsulConfig.Port))
 	consulClient, err := api.NewClient(cfg)
+	fmt.Println("sucess")
 	if err != nil {
 		hlog.Fatalf("new consul client failed: %s", err.Error())
 	}

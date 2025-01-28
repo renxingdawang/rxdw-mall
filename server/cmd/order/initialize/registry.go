@@ -1,4 +1,4 @@
-package initalize
+package initialize
 
 import (
 	"github.com/bwmarrin/snowflake"
@@ -7,7 +7,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/utils"
 	"github.com/hashicorp/consul/api"
 	consul "github.com/kitex-contrib/registry-consul"
-	"github.com/renxingdawang/rxdw-mall/server/cmd/checkout/config"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/order/config"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"net"
 	"strconv"
