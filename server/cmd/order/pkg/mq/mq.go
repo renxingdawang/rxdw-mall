@@ -23,9 +23,6 @@ func (r *RabbitMQ) Publish(queue string, event []byte) error {
 	return nil
 }
 
-func (r *RabbitMQ) Consume(queue string, f func(msg []byte)) interface{} {
-
-}
 func (r *RabbitMQ) Consume(queue string, handler func([]byte)) error {
 	q, err := r.channel.QueueDeclare(
 		queue,

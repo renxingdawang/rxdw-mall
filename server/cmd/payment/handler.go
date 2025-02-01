@@ -106,11 +106,7 @@ func (s *PaymentServiceImpl) CancelPayment(ctx context.Context, req *payment.Can
 		TransactionId: paymentLog.TransactionId,
 	}
 	eventBytes, _ := json.Marshal(event)
-	err = s.RabbitMQ.Publish(
-		consts.PaymentCancelledQueue,
-		eventBytes,
-	)
-	if err != nil {
+	if err := s.RabbitMQ.Publish(consts.PaymentCancelledQueue, eventBytes); err != nil {
 		paymentLog.Status = string(consts.PayStatePaid)
 		_ = s.PaymentLogMysqlManager.UpdatePaymentLog(ctx, paymentLog)
 		return nil, errno.PaymentSrvErr.WithMessage("can't cancel order by mq")
@@ -121,13 +117,20 @@ func (s *PaymentServiceImpl) CancelPayment(ctx context.Context, req *payment.Can
 
 // TimedCancelPayment implements the PaymentServiceImpl interface.
 func (s *PaymentServiceImpl) TimedCancelPayment(ctx context.Context, req *payment.TimedCancelPaymentReq) (resp *payment.TimedCancelPaymentResp, err error) {
-	// 将 TransactionID 发送到延迟队列（30分钟后过期）
-	err = s.RabbitMQ.PublishWithDelay(
-		consts.DelayQueue,
-		[]byte(req.OrderId),
-		30*60*1000, // 30分钟（毫秒）
-	)
+	// 查询支付记录
+	paymentLog, err := s.PaymentLogMysqlManager.GetPaymentLogByOrderID(ctx, req.OrderId)
 	if err != nil {
+		return nil, errno.PaymentSrvErr.WithMessage("payment not found")
+	}
+	// 发送延迟消息到队列（30分钟后触发取消）
+	var event = saga.PaymentCancelledEvent{
+		OrderId:       paymentLog.OrderId,
+		UserId:        int32(paymentLog.UserId),
+		TransactionId: paymentLog.TransactionId,
+	}
+	eventBytes, _ := json.Marshal(event)
+	// 将 TransactionID 发送到延迟队列（30分钟后过期）
+	if err := s.RabbitMQ.PublishWithDelay(consts.DelayQueue, eventBytes, 30*60*1000); err != nil {
 		return nil, errno.PaymentSrvErr.WithMessage("failed to schedule cancellation")
 	}
 	return &payment.TimedCancelPaymentResp{Success: true}, nil
