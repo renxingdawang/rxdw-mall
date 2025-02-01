@@ -1,6 +1,6 @@
 # eg. make service=video generate
 generate:
-	kitex -module github.com/rxdw-mall ../idl/rpc/$(service).thrift
+	kitex -module github.com/renxingdawang/rxdw-mall ../idl/rpc/$(service).thrift
 
 auth:
 	make service=auth generate

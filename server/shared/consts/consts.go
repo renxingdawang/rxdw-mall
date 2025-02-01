@@ -24,10 +24,10 @@ const (
 	ConsulCheckTimeout                        = "5s"
 	ConsulCheckDeregisterCriticalServiceAfter = "15s"
 
-	HlogFilePath = "./tmp/hlog/logs/"
-	KlogFilePath = "./tmp/klog/logs/"
-	MySqlDSN     = "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
-
+	HlogFilePath       = "./tmp/hlog/logs/"
+	KlogFilePath       = "./tmp/klog/logs/"
+	MySqlDSN           = "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
+	RabbitMqURI        = "amqp://%s:%s@%s:%d/"
 	MySQLImage         = "mysql:latest"
 	MySQLContainerPort = "3306/tcp"
 	MySQLContainerIP   = "121.40.228.214"
@@ -45,12 +45,22 @@ const (
 	UserConfigPath     = "./server/cmd/user/config.yaml"
 
 	RedisAuthClientDB = 0
+
+	DelayQueue             = "payment_delay_queue"
+	PaymentCancelledQueue  = "payment_cancelled_queue"
+	OrderCancelFailedQueue = "order_cancel_failed_queue"
 )
 
 type OrderState string
+type PayState string
 
 const (
 	OrderStatePlaced   OrderState = "placed"
 	OrderStatePaid     OrderState = "paid"
 	OrderStateCanceled OrderState = "canceled"
+)
+const (
+	PayStateCreated  PayState = "created"
+	PayStatePaid     PayState = "paid"
+	PayStateCanceled PayState = "canceled"
 )

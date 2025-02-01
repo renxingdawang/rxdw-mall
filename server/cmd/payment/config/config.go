@@ -23,9 +23,21 @@ type RedisConfig struct {
 	Prefix   string `mapstructure:"prefix" json:"prefix"`
 }
 type ServerConfig struct {
-	Name      string      `mapstructure:"name" json:"name"`
-	Host      string      `mapstructure:"host" json:"host"`
-	MysqlInfo MysqlConfig `mapstructure:"mysql" json:"mysql"`
-	RedisInfo RedisConfig `mapstructure:"redis" json:"redis"`
-	OtelInfo  OtelConfig  `mapstructure:"otel" json:"otel"`
+	Name         string         `mapstructure:"name" json:"name"`
+	Host         string         `mapstructure:"host" json:"host"`
+	MysqlInfo    MysqlConfig    `mapstructure:"mysql" json:"mysql"`
+	RedisInfo    RedisConfig    `mapstructure:"redis" json:"redis"`
+	OtelInfo     OtelConfig     `mapstructure:"otel" json:"otel"`
+	OrderSrvInfo OrderSrvConfig `mapstructure:"order_srv" json:"order_srv"`
+	RabbitMqInfo RabbitMqConfig `mapstructure:"rabbitmq" json:"rabbitmq"`
+}
+type OrderSrvConfig struct {
+	Name string `mapstructure:"name" json:"name"`
+}
+type RabbitMqConfig struct {
+	Host     string `mapstructure:"host" json:"host"`
+	Port     int    `mapstructure:"port" json:"port"`
+	Exchange string `mapstructure:"exchange" json:"exchange"`
+	User     string `mapstructure:"user" json:"user"`
+	Password string `mapstructure:"password" json:"password"`
 }

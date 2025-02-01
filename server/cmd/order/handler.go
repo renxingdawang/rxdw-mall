@@ -2,13 +2,16 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/google/uuid"
+	"github.com/renxingdawang/rxdw-mall/server/cmd/order/pkg/mq"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/order/pkg/mysql"
 	"github.com/renxingdawang/rxdw-mall/server/shared/consts"
 	"github.com/renxingdawang/rxdw-mall/server/shared/errno"
 	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/cart"
 	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/order"
+	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/saga"
 	"gorm.io/gorm"
 )
 
@@ -74,7 +77,6 @@ func (s *OrderServiceImpl) PlaceOrder(ctx context.Context, req *order.PlaceOrder
 
 // ListOrder implements the OrderServiceImpl interface.
 func (s *OrderServiceImpl) ListOrder(ctx context.Context, req *order.ListOrderReq) (resp *order.ListOrderResp, err error) {
-	// TODO: Your code here...
 	orders, err := s.OrderMysqlManager.ListOrder(ctx, req.UserId)
 	if err != nil {
 		klog.Errorf("model.ListOrder.err:%v", err)
@@ -136,6 +138,32 @@ func (s *OrderServiceImpl) MarkOrderPaid(ctx context.Context, req *order.MarkOrd
 
 // CancelOrder implements the OrderServiceImpl interface.
 func (s *OrderServiceImpl) CancelOrder(ctx context.Context, req *order.CancelOrderReq) (resp *order.CancelOrderResp, err error) {
-	// TODO: Your code here...
-	return
+	err = s.OrderMysqlManager.UpdateOrderState(ctx, req.GetUserId(), req.GetOrderId(), consts.OrderStateCanceled)
+	if err != nil {
+		return nil, errno.OrderSrvErr.WithMessage("cancel order error")
+	}
+	return &order.CancelOrderResp{Success: true}, nil
+}
+func StartOrderCancelConsumer(rabbitMQ *mq.RabbitMQ, orderService *OrderServiceImpl) {
+	_ = rabbitMQ.Consume(consts.PaymentCancelledQueue, func(msg []byte) {
+		var event saga.PaymentCancelledEvent
+		_ = json.Unmarshal(msg, &event)
+
+		ctx := context.Background()
+		// 调用订单取消
+		_, err := orderService.CancelOrder(ctx, &order.CancelOrderReq{
+			UserId:  event.UserId,
+			OrderId: event.OrderId,
+		})
+		if err != nil {
+			// 发布 OrderCancelFailedEvent 触发补偿
+			failedEvent := &saga.OrderCancelFailedEvent{
+				OrderId:     event.OrderId,
+				UserId:      event.UserId,
+				ErrorReason: err.Error(),
+			}
+			failedBytes, _ := json.Marshal(failedEvent)
+			_ = rabbitMQ.Publish(consts.OrderCancelFailedQueue, failedBytes)
+		}
+	})
 }

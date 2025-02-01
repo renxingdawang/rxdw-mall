@@ -29,7 +29,15 @@ type ServerConfig struct {
 	RedisInfo      RedisConfig      `mapstructure:"redis" json:"redis"`
 	OtelInfo       OtelConfig       `mapstructure:"otel" json:"otel"`
 	ProductSrvInfo ProductSrvConfig `mapstructure:"product_srv" json:"product_srv"`
+	RabbitMqInfo   RabbitMqConfig   `mapstructure:"rabbitmq" json:"rabbitmq"`
 }
 type ProductSrvConfig struct {
 	Name string `mapstructure:"name" json:"name"`
+}
+type RabbitMqConfig struct {
+	Host     string `mapstructure:"host" json:"host"`
+	Port     int    `mapstructure:"port" json:"port"`
+	Exchange string `mapstructure:"exchange" json:"exchange"`
+	User     string `mapstructure:"user" json:"user"`
+	Password string `mapstructure:"password" json:"password"`
 }

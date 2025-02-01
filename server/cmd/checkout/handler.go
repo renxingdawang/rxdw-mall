@@ -54,7 +54,6 @@ Checkout
 */
 // Checkout implements the CheckoutServiceImpl interface.
 func (s *CheckoutServiceImpl) Checkout(ctx context.Context, req *checkout.CheckoutReq) (resp *checkout.CheckoutResp, err error) {
-	// TODO: Your code here...
 	cartResult, err := s.CartManager.GetCart(ctx, &cart.GetCartReq{UserId: req.UserId})
 	if err != nil {
 		klog.Error(err)

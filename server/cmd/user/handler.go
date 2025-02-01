@@ -55,7 +55,6 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (
 
 // Login implements the UserServiceImpl interface.
 func (s *UserServiceImpl) Login(ctx context.Context, req *user.LoginReq) (resp *user.LoginResp, err error) {
-	// TODO: Your code here...
 	existingUser, err := s.UserMysqlManager.GetUserByEmail(ctx, req.GetEmail())
 	if err != nil {
 		return nil, err
