@@ -50,8 +50,30 @@ func (r *RabbitMQ) PublishWithDelay(queue string, body []byte, delayMs int) erro
 	)
 }
 func (r *RabbitMQ) Publish(queue string, event []byte) error {
-	//Todo:
-	return nil
+	_, err := r.channel.QueueDeclare(
+		queue,
+		true,
+		false,
+		false,
+		false,
+		nil,
+	)
+	if err != nil {
+		return err
+	}
+
+	// 发布消息到队列
+	return r.channel.Publish(
+		"",    // exchange
+		queue, // routing key
+		false, // mandatory
+		false, // immediate
+		amqp.Publishing{
+			ContentType:  "text/plain",
+			Body:         event,
+			DeliveryMode: amqp.Persistent,
+		},
+	)
 }
 func (r *RabbitMQ) Consume(queue string, handler func(string)) error {
 	q, err := r.channel.QueueDeclare(
