@@ -6,8 +6,10 @@ import (
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/renxingdawang/rxdw-mall/server/cmd/user/pkg/mysql"
+	"github.com/renxingdawang/rxdw-mall/server/shared/errno"
 	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/auth"
 	"github.com/renxingdawang/rxdw-mall/server/shared/kitex_gen/user"
+	"github.com/renxingdawang/rxdw-mall/server/shared/tools/email"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -35,6 +37,11 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (
 	if err != nil {
 		return nil, err
 	}
+	isValidEmail := email.IsValidEmail(req.GetEmail())
+	if !isValidEmail {
+		return nil, errno.UserSrvErr.WithMessage("email is invalid")
+	}
+
 	if existingUser != nil {
 		return nil, errors.New("emile already registered")
 	}
